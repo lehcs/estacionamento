@@ -6,6 +6,9 @@ class estacionamento {
         if(this.valorPago <= 0){
             return "Valor insuficiente para estacionar";
         }
+        else if(this.valorPago === 1.00){
+            return "Tempo máximo de 30 minutos.";
+        }
         else if(this.valorPago > 1.00 && this.valorPago < 1.75){
             let troco = this.calcularTroco(1.00);
             return `Tempo máximo de 30 minutos. Seu troco é de R$${troco}.`;
