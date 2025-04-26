@@ -2,43 +2,46 @@ class estacionamento {
     constructor(valorPago) {
         this.valorPago = valorPago;
     }
-    calcularTempo(tempo){
+    calcularTempo(){
         if(this.valorPago <= 0){
-            return "Valor pago inválido.";
-        }
-        else if(tempo <= 0){
-            return "Tempo inválido.";
-        }
-        else if(this.valorPago = 1.00){
-            return "Você pode ficar 30 minutos.";
+            return "Valor insuficiente para estacionar";
         }
         else if(this.valorPago > 1.00 && this.valorPago < 1.75){
-            return "Tempo máximo de 30 minutos e seu troco é de R$" + this.calcularTroco(this.valorPago) + ".";
+            let troco = this.calcularTroco(1.00);
+            return `Tempo máximo de 30 minutos. Seu troco é de R$${troco}.`;
         }
-        else if(this.valorPago = 1.75){
+        else if(this.valorPago === 1.75){
             return "Tempo máximo de 1 hora.";
         }
         else if(this.valorPago > 1.75 && this.valorPago < 3.00){
-            return "Tempo máximo de 1 hora e seu troco é de R$" + this.calcularTroco(this.valorPago) + ".";
+            let troco = this.calcularTroco(1.75);
+            return `Tempo máximo de 1 hora. Seu troco é de R$${troco}.`;
         }
-        else if(this.valorPago = 3.00){
+        else if(this.valorPago === 3.00){
             return "Tempo máximo de 2 horas.";
         }
         else if(this.valorPago > 3.00){
-            return "Tempo máximo de 2 horas e seu troco é de R$" + this.calcularTroco(this.valorPago) + ".";
+            let troco = this.calcularTroco(3.00);
+            return `Tempo máximo de 2 horas. Seu troco é de R$${troco}.`;
         }
         else{
             return "Valor pago inválido.";
         }
     }
-    calcularTroco(valorTotal) {
-        if (this.valorPago < valorTotal) {
-            return "Valor pago é menor que o valor total.";
-        } else if (this.valorPago === valorTotal) {
-            return "Não há troco.";
-        } else if (this.valorPago > valorTotal) {
-            return "Troco: R$" + (this.valorPago - valorTotal).toFixed(2);
+    calcularTroco(valorTarifa) {
+        if (this.valorPago >= valorTarifa){
+            return (this.valorPago - valorTarifa).toFixed(2);
+        } else{
+            return "valor insuficiente";
         }
-        return this.valorPago - valorTotal;
     }
+}
+function calcularEstacionamento() {
+    const valor = parseFloat(document.getElementById('valor').value);
+
+    const novoEstacionamento = new estacionamento(valor);
+
+    const resultado = novoEstacionamento.calcularTempo();
+
+    document.getElementById('resultado').textContent = resultado;
 }
